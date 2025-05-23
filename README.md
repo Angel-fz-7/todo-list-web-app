@@ -1,4 +1,4 @@
-# todo-list-web-app => web app link (file:///C:/MinGW/bin/c%20tutorials/projects.html/web%20d.html)
+# todo-list-web-app => web app link ( file:///C:/MinGW/bin/c%20tutorials/projects.html/web%20d.html )
 A simple to-do list web app using HTML, CSS, and JavaScript
 # To-Do List Web App 📝
 
