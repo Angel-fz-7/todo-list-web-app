@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<head>
+  <title> To-Do-List </title>
+  <style>
+    body{  font-family: Arial, Helvetica, sans-serif; 
+      background-color: #d17f7f ;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #333;
+    }
+     #todo-form{
+      display: flex;
+      margin-bottom: auto;
+    }
+     #new-task {
+      padding: 10px;
+      width: 250px;
+      font-size: large;
+     }
+     #add-task{
+      padding: 10px;
+      font-size: 16px;
+      background-color: rgb(76, 248, 76);
+      color: #f3f2f5;
+      border: none;
+      cursor: pointer;
+     }
+     ul {
+      list-style: none;
+      padding: o;
+     }
+     li{
+      background: white;
+      padding: 10px;
+      margin: 5px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+     }
+  </style>
+</head>
+<h1> MY TO-DO-LIST </h1>
+<form id="todo-form"> 
+  <input type="text" id="new-task" placeholder="add new task..."/>
+  <button type="submit" id="add-task">Add</button>
+</form>
+<ul id="task-list"></ul>
+
+<script>
+  const form = document.getElementById('todo-form');
+  const newTaskInput = document.getElementById('new-task');
+  const taskList =document.getElementById('task-list');
+  document.addEventListener('DOMContentLoaded', loadTask);
+
+  function loadTask() { 
+     const tasks = JSON.parse(localStorage.getItem('task'))|| [];
+    tasks.forEach(task => { addTaskToDOM(task.text, task.completed)});
+    }
+  function saveTask() {
+    const task = [];
+    taskList.querySelectorAll('li').forEach(li => { 
+      tasks.push({
+        text: li.querySelector('span').innerText,
+       completed: li.querySelector('span').classList.contains('completed')
+      })
+    });
+    localStorage.setItem('tasks',JSON.stringify(tasks));
+  }
+
+  form.addEventListener('submit', function(e){
+   
+    e.preventDefault();
+    const taskText = newTaskInput.value.trim();
+    if (taskText !== '') {
+      addTaskToDOM(taskText);
+      newTaskInput.value = '';
+      saveTask();
+    }
+
+  });
+  function addTaskToDOM(text,completed = false ) {
+    const li = document.createElement('li');
+    const span = document.createElement('span');
+    span.innerText = text;
+    if (completed) span.classList.add('completed');
+    span.addEventListener('click', () => { 
+      span.classList.toggle('completed');
+    saveTask();
+    });
+    
+  const deleteBtn = document.createElement('button');
+  deleteBtn.innerText = 'Delete';
+  deleteBtn.className = 'delete'
+  deleteBtn.addEventListener('click', () => {
+    li.remove();
+    saveTask();
+
+  })
+  
+  li.appendChild(span);
+  li.appendChild(deleteBtn);
+  taskList.appendChild(li);
+}
+</script>
+</body>
+</head>
